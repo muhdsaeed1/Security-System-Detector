@@ -29,7 +29,7 @@ This project was a collaborative effort by the team members Saheed Olayinka, Pri
 
                                                       SECURITY SYSTEM DETECTOR
 
-This uses OpenCV and a basic person detection model to record and save video;system seems to have various features like person detection, video storage, text notifications, arming/disarming capabilities, and activity logging. Below are some additional information and explanations for the installation and execution steps you've outlined:
+This uses OpenCV and a basic person detection model to record and save video;system seems to have various features like person detection, video storage, text notifications, arming/disarming capabilities, and activity logging. Below are some additional information and explanations for the installation and execution steps outlined:
 
 ### Installation
 
