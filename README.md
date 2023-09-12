@@ -19,7 +19,7 @@ This project was a collaborative effort by the team members Saheed Olayinka, Pri
    - Role: [Design and Backgroung processing]
    - Contact: [ruhullahimuhammad2014@gmail.com]
 
-4. **Sesay Sesay**
+4. **Mohamed Augustin Sesay**
    - Role: [Optimization and Testing]
    - Contact: [sesaymohamedaugustin@gmail.com]
 
