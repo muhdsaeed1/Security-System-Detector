@@ -1,7 +1,7 @@
  
 
 
-This project was a collaborative effort by the team members Saheed Olayinka, Princess Okonta, Ruhullahi Muhammad, and Sesay Sesay. Teamwork can lead to the successful development of complex projects.
+This project was a collaborative effort by the team members Saheed Olayinka, Princess Okonta, Ruhullahi Muhammad, and Mohamed Augustin Sesay. Teamwork can lead to the successful development of complex projects.
 
 
 
