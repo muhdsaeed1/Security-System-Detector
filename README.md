@@ -1,7 +1,7 @@
  
 
 
-This project was a collaborative effort by the team members Saheed Olayinka, Princess Okonta, Ruhullahi Muhammad, and Sesay Sesay. Teamwork can lead to the successful development of complex projects.
+This project was a collaborative effort by the team members Saheed Olayinka, Princess Okonta, Ruhullahi Muhammad, and Mohamed Augustin Sesay. Teamwork can lead to the successful development of complex projects.
 
 
 
@@ -19,7 +19,7 @@ This project was a collaborative effort by the team members Saheed Olayinka, Pri
    - Role: [Design and Backgroung processing]
    - Contact: [ruhullahimuhammad2014@gmail.com]
 
-4. **Sesay Sesay**
+4. **Mohamed Augustin Sesay**
    - Role: [Optimization and Testing]
    - Contact: [sesaymohamedaugustin@gmail.com]
 
@@ -29,7 +29,7 @@ This project was a collaborative effort by the team members Saheed Olayinka, Pri
 
                                                       SECURITY SYSTEM DETECTOR
 
-This uses OpenCV and a basic person detection model to record and save video;system seems to have various features like person detection, video storage, text notifications, arming/disarming capabilities, and activity logging. Below are some additional information and explanations for the installation and execution steps you've outlined:
+This uses OpenCV and a basic person detection model to record and save video;system seems to have various features like person detection, video storage, text notifications, arming/disarming capabilities, and activity logging. Below are some additional information and explanations for the installation and execution steps outlined:
 
 ### Installation
 
