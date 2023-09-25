@@ -2,10 +2,10 @@ import cv2 as cv
 import numpy as np
 import threading
 import datetime
-from storage import handle_detection
+#from storage import handle_detection
 
 class Camera:
-    net = cv.dnn.readNetFromCaffe('models/config.txt', 'models/mobilenet_iter_73000.caffemodel')
+    net = cv.dnn.readNetFromCaffe('models/configuration.txt', 'models/bilenet_iter_73000.caffemodel')
     cap = cv.VideoCapture(0)
     out = None
 
@@ -16,7 +16,6 @@ class Camera:
     def arm(self):
         if not self.armed and not self.camera_thread:
             self.camera_thread = threading.Thread(target=self.run)
-        
         self.camera_thread.start()
         self.armed = True
         print("Camera armed.")
@@ -76,13 +75,13 @@ class Camera:
                     if self.out is not None:  # if VideoWriter is initialized, release it
                         self.out.release()
                         self.out = None  # set it back to None
-                        handle_detection(current_recording_name)
+                        #handle_detection(current_recording_name)
                         current_recording_name = None
                         
         if self.out is not None:  # if VideoWriter is initialized, release it
             self.out.release()
             self.out = None  # set it back to None
-            handle_detection(current_recording_name)
+            #handle_detection(current_recording_name)
             current_recording_name = None
             
         self.cap.release()
