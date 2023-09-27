@@ -17,14 +17,17 @@ def arm():
     camera.arm()
     return jsonify(message="System armed."), 200
 
+
 @app.route('/disarm', methods=['POST'])
 def disarm():
     camera.disarm()
     return jsonify(message="System disarmed."), 200
 
+
 @app.route('/get-armed', methods=['GET'])
 def get_armed():
     return jsonify(armed=camera.armed), 200
+
 
 @app.route('/motion_detected', methods=['POST'])
 def motion_detected():
@@ -44,17 +47,20 @@ def motion_detected():
 
     return jsonify({}), 201
 
+
 @app.route("/get-logs")
 def get_logs():
-    start_date = request.args.get("startDate") # y-m-d
+    start_date = request.args.get("startDate")  # y-m-d
     end_date = request.args.get("endDate")  # y-m-d
 
     logs = list_videos_in_date_range(start_date, end_date)
     return jsonify({"logs": logs}), 200
 
+
 @app.route("/video/<id>")
 def get_video(id):
-    return jsonify({"path": get_path(id)})    
+    return jsonify({"path": get_path(id)})
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

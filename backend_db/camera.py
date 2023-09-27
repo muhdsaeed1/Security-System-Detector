@@ -1,18 +1,29 @@
-import cv2 as cv
-import numpy as np
-import threading
 import datetime
-#from storage import handle_detection
+import threading
+import numpy as np
+import cv2 as cv
+
+import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+config_file = os.path.join(script_dir, 'models', 'configuration.txt')
+model_file = os.path.join(script_dir, 'models',
+                          'bilenet_iter_73000.caffemodel')
+
+
+# from storage import handle_detection
+
 
 class Camera:
-    net = cv.dnn.readNetFromCaffe('models/configuration.txt', 'models/bilenet_iter_73000.caffemodel')
+    net = cv.dnn.readNetFromCaffe(
+        config_file, model_file)
     cap = cv.VideoCapture(0)
     out = None
 
     def __init__(self):
         self.armed = False
         self.camera_thread = None
-    
+
     def arm(self):
         if not self.armed and not self.camera_thread:
             self.camera_thread = threading.Thread(target=self.run)
@@ -35,6 +46,13 @@ class Camera:
         print("Camera started...")
         while self.armed:
             _, frame = self.cap.read()
+            if frame is None:
+                continue  # Skip processing this frame if it's empty
+
+            # Ensure that the frame has valid dimensions
+            if frame.shape[0] <= 0 or frame.shape[1] <= 0:
+                continue  # Skip processing this frame if dimensions are invalid
+
             blob = cv.dnn.blobFromImage(frame, 0.007843, (300, 300), 127.5)
             self.net.setInput(blob)
             detections = self.net.forward()
@@ -49,9 +67,11 @@ class Camera:
 
                 # Check if the detection is of a person and its confidence is greater than the minimum confidence
                 if idx == 15 and confidence > 0.5:
-                    box = detections[0, 0, i, 3:7] * np.array([frame.shape[1], frame.shape[0], frame.shape[1], frame.shape[0]])
+                    box = detections[0, 0, i, 3:7] * np.array(
+                        [frame.shape[1], frame.shape[0], frame.shape[1], frame.shape[0]])
                     (startX, startY, endX, endY) = box.astype("int")
-                    cv.rectangle(frame, (startX, startY), (endX, endY), (0, 255, 0), 2)
+                    cv.rectangle(frame, (startX, startY),
+                                 (endX, endY), (0, 255, 0), 2)
                     person_detected = True
 
             # If a person is detected, start/continue recording
@@ -63,7 +83,8 @@ class Camera:
                     print("Person motion detected at", formatted_now)
                     current_recording_name = f'{formatted_now}.mp4'
                     fourcc = cv.VideoWriter_fourcc(*'mp4v')  # or use 'XVID'
-                    self.out = cv.VideoWriter(current_recording_name, fourcc, 20.0, (frame.shape[1], frame.shape[0]))
+                    self.out = cv.VideoWriter(
+                        current_recording_name, fourcc, 20.0, (frame.shape[1], frame.shape[0]))
 
                 # Write the frame into the file 'output.mp4'
                 self.out.write(frame)
@@ -75,15 +96,15 @@ class Camera:
                     if self.out is not None:  # if VideoWriter is initialized, release it
                         self.out.release()
                         self.out = None  # set it back to None
-                        #handle_detection(current_recording_name)
+                        # handle_detection(current_recording_name)
                         current_recording_name = None
-                        
+
         if self.out is not None:  # if VideoWriter is initialized, release it
             self.out.release()
             self.out = None  # set it back to None
-            #handle_detection(current_recording_name)
+            # handle_detection(current_recording_name)
             current_recording_name = None
-            
+
         self.cap.release()
         print("Camera released...")
 

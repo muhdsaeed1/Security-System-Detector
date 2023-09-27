@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MainPage from "./main";
+import MainPage from "./Main";
 import DetailsPage from "./details";
 
 const MAIN_PAGE = "main";
