@@ -11,7 +11,7 @@ model_file = os.path.join(script_dir, 'models',
                           'bilenet_iter_73000.caffemodel')
 
 
-# from storage import handle_detection
+from storage import handle_detection
 
 
 class Camera:
@@ -96,13 +96,13 @@ class Camera:
                     if self.out is not None:  # if VideoWriter is initialized, release it
                         self.out.release()
                         self.out = None  # set it back to None
-                        # handle_detection(current_recording_name)
+                        handle_detection(current_recording_name)
                         current_recording_name = None
 
         if self.out is not None:  # if VideoWriter is initialized, release it
             self.out.release()
             self.out = None  # set it back to None
-            # handle_detection(current_recording_name)
+            handle_detection(current_recording_name)
             current_recording_name = None
 
         self.cap.release()
