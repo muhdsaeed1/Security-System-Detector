@@ -1,3 +1,4 @@
+from storage import handle_detection
 import datetime
 import threading
 import numpy as np
@@ -9,9 +10,6 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 config_file = os.path.join(script_dir, 'models', 'configuration.txt')
 model_file = os.path.join(script_dir, 'models',
                           'bilenet_iter_73000.caffemodel')
-
-
-from storage import handle_detection
 
 
 class Camera:

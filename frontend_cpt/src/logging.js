@@ -9,16 +9,21 @@ function Log({ onClick, url, date }) {
 		const video = videoRef.current;
 
 		video.addEventListener("loadeddata", () => {
-			// You can adjust the time if you want to capture a frame other than the first one
+			console.log("Video loaded:", url);
 			video.currentTime = 1;
 		});
 
 		video.addEventListener("seeked", () => {
+			console.log("Video seeked:", url);
 			const canvas = canvasRef.current;
 			const ctx = canvas.getContext("2d");
 			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 		});
 	}, [url]);
+
+	useEffect(() => {
+		console.log("Component rendered with date:", date);
+	}, [date]);
 
 	return (
 		<div onClick={onClick} className="log">
