@@ -8,7 +8,6 @@ import uuid
 
 API_ENDPOINT = "http://127.0.0.1:5000/motion_detected"
 
-
 def save_to_file(path):
     # Generate a UUID4 identifier
     unique_id = str(uuid.uuid4())
@@ -34,14 +33,14 @@ def save_to_file(path):
         # If the file exists, load existing data
         with open(filename, 'r') as file:
             existing_data = json.load(file)
-
+        
         # Append the new data to the existing data
         existing_data.append(data)
 
         # Write the updated data back to the file
         with open(filename, 'w') as file:
             json.dump(existing_data, file, indent=4)
-
+        
         print(f'Data appended to {filename}')
     else:
         # If the file doesn't exist, create a new one with the new data
@@ -52,13 +51,27 @@ def save_to_file(path):
     return "http://127.0.0.1:5000/video/"+unique_id
 
 
+""" def upload_to_bucket(blob_name, path_to_file):
+    blob = bucket.blob(blob_name)
+    blob.content_type = 'video/mp4'
+
+    blob.upload_from_filename(path_to_file)
+
+    blob.patch()
+    blob.make_public()
+
+    os.remove(path_to_file)
+
+    print(f"A new file by the name of {blob_name} was created in your bucket {BUCKET_NAME}")
+    return blob.public_url
+ """
 def get_path(id):
     filename = "db.json"
     with open(filename, 'r') as file:
-        existing_data = json.load(file)
-        for data in existing_data:
-            if data["id"] == id:
-                return data["path"]
+            existing_data = json.load(file)
+            for data in existing_data:
+                if data["id"] == id:
+                    return data["path"]
     return "File not found"
 
 
@@ -72,7 +85,7 @@ def handle_detection(path_to_file):
             "url": url,
         }
         requests.post(API_ENDPOINT, json=data)
-
+    
     thread = threading.Thread(target=action_thread, args=(path_to_file,))
     thread.start()
 
@@ -89,11 +102,9 @@ def list_videos_in_date_range(start_date, end_date, extension=".mp4"):
         base_url = "http://127.0.0.1:5000/video/"
         for vid in json.load(file):
             if vid['path'].endswith(extension):
-                created_date = datetime.strptime(
-                    vid['current_date'], '%Y-%m-%d')
+                created_date = datetime.strptime(vid['current_date'], '%Y-%m-%d')
                 # Check if blob creation date is within the desired range
                 if start_datetime <= created_date <= end_datetime:
-                    matching_files.append(
-                        {"url": base_url+vid['id'], "date": vid["current_date"]})
+                    matching_files.append({"url": base_url+vid['id'], "date": vid["current_date"]})
 
     return matching_files
